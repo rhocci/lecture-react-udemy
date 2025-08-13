@@ -9,8 +9,7 @@ function App() {
 
   function handleSelect(selectedButton) {
     // selectedButton: string -> 'components', 'jsx', 'props', 'state'
-    setSelectedTopic(EXAMPLES[selectedButton]);
-    console.log(selectedTopic);
+    setSelectedTopic(selectedButton);
   }
 
   return (
@@ -36,13 +35,17 @@ function App() {
             <TabButton onSelect={() => handleSelect("props")}>Props</TabButton>
             <TabButton onSelect={() => handleSelect("state")}>State</TabButton>
           </menu>
-          <div id="tab-content">
-            <h3>{selectedTopic.title}</h3>
-            <p>{selectedTopic.description}</p>
-            <pre>
-              <code>{selectedTopic.code}</code>
-            </pre>
-          </div>
+          {selectedTopic ? (
+            <div id="tab-content">
+              <h3>{EXAMPLES[selectedTopic].title}</h3>
+              <p>{EXAMPLES[selectedTopic].description}</p>
+              <pre>
+                <code>{EXAMPLES[selectedTopic].code}</code>
+              </pre>
+            </div>
+          ) : (
+            <p>Please select a topic.</p>
+          )}
         </section>
       </main>
     </div>

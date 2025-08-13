@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { CORE_CONCEPTS, EXAMPLES } from "./data.js";
-import CoreConcept from "./components/CoreConcept/CoreConcept.jsx";
-import Header from "./components/Header/Header.jsx";
-import TabButton from "./components/TabButton/TabButton.jsx";
+import { useState } from 'react';
+import { CORE_CONCEPTS, EXAMPLES } from './data.js';
+import CoreConcept from './components/CoreConcept/CoreConcept.jsx';
+import Header from './components/Header/Header.jsx';
+import TabButton from './components/TabButton/TabButton.jsx';
 
 function App() {
   const [selectedTopic, setSelectedTopic] = useState();
@@ -27,14 +27,14 @@ function App() {
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton onSelect={() => handleSelect("components")}>
+            <TabButton onSelect={() => handleSelect('components')}>
               Components
             </TabButton>
-            <TabButton onSelect={() => handleSelect("jsx")}>JSX</TabButton>
-            <TabButton onSelect={() => handleSelect("props")}>Props</TabButton>
-            <TabButton onSelect={() => handleSelect("state")}>State</TabButton>
+            <TabButton onSelect={() => handleSelect('jsx')}>JSX</TabButton>
+            <TabButton onSelect={() => handleSelect('props')}>Props</TabButton>
+            <TabButton onSelect={() => handleSelect('state')}>State</TabButton>
           </menu>
-          {selectedTopic ? (
+          {selectedTopic && (
             <div id="tab-content">
               <h3>{EXAMPLES[selectedTopic].title}</h3>
               <p>{EXAMPLES[selectedTopic].description}</p>
@@ -42,9 +42,8 @@ function App() {
                 <code>{EXAMPLES[selectedTopic].code}</code>
               </pre>
             </div>
-          ) : (
-            <p>Please select a topic.</p>
           )}
+          {!selectedTopic && <p>Please select a topic.</p>}
         </section>
       </main>
     </div>

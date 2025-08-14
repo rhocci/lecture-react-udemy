@@ -1,21 +1,16 @@
-import { useState } from 'react';
-
-import { CORE_CONCEPTS } from './data.js';
+import { useState, Fragment } from 'react';
+import { CORE_CONCEPTS, EXAMPLES } from './data.js';
+import CoreConcept from './components/CoreConcept/CoreConcept.jsx';
 import Header from './components/Header/Header.jsx';
-import CoreConcept from './components/CoreConcept.jsx';
-import TabButton from './components/TabButton.jsx';
-import { EXAMPLES } from './data.js';
+import TabButton from './components/TabButton/TabButton.jsx';
 
 function App() {
   const [selectedTopic, setSelectedTopic] = useState();
 
   function handleSelect(selectedButton) {
-    // selectedButton => 'components', 'jsx', 'props', 'state'
+    // selectedButton: string -> 'components', 'jsx', 'props', 'state'
     setSelectedTopic(selectedButton);
-    // console.log(selectedTopic);
   }
-
-  console.log('APP COMPONENT EXECUTING');
 
   let tabContent = <p>Please select a topic.</p>;
 
@@ -32,7 +27,7 @@ function App() {
   }
 
   return (
-    <div>
+    <>
       <Header />
       <main>
         <section id="core-concepts">
@@ -71,10 +66,10 @@ function App() {
               State
             </TabButton>
           </menu>
-          {tabContent}
         </section>
+        {tabContent}
       </main>
-    </div>
+    </>
   );
 }
 

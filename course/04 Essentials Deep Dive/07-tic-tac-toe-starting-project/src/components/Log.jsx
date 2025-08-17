@@ -1,7 +1,9 @@
-export default function Log() {
+export default function Log({ gameLogs }) {
   return (
     <ol id="log">
-      <li></li>
+      {gameLogs.map((log, logIndex) => (
+        <li key={logIndex}>{log}</li>
+      ))}
     </ol>
   );
 }

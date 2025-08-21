@@ -25,7 +25,11 @@ function App() {
     <>
       <Header />
       <UserInput currentValue={currentValue} onInputChange={handleUserInput} />
-      <ResultTable annualData={annualData} />
+      {currentValue.duration < 1 ? (
+        <p className="center">Invalid Duration! (Minimum Value: 1)</p>
+      ) : (
+        <ResultTable annualData={annualData} />
+      )}
     </>
   );
 }

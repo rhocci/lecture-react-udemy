@@ -1,24 +1,11 @@
 import { formatter } from "../../util/investment.js";
 import "./ResultTable.css";
 
-export default function ResultTable({ currentData, annualData }) {
-  let emptyData = <tr></tr>;
-
-  let renderedData = annualData.map((data, i) => {
-    const totalInterest = currentData[i].expectedReturn;
-    const investedCapital = currentData[i].initialInvestment;
-
-    return (
-      <tr key={i}>
-        <td>{data.year}</td>
-        <td>{formatter.format(data.valueEndOfYear)}</td>
-        <td>{formatter.format(totalInterest)}</td>
-        <td>{formatter.format(data.interest)}</td>
-        <td>{formatter.format(investedCapital)}</td>
-      </tr>
-    );
-  });
-
+export default function ResultTable({
+  investedCapital,
+  yearInterest,
+  annualData,
+}) {
   return (
     <table id="result">
       <thead>
@@ -30,7 +17,19 @@ export default function ResultTable({ currentData, annualData }) {
           <th>Invested Capital</th>
         </tr>
       </thead>
-      <tbody>{annualData ? renderedData : emptyData}</tbody>
+      <tbody>
+        {annualData.map((data) => {
+          return (
+            <tr key={data.year}>
+              <td>{data.year}</td>
+              <td>{formatter.format(data.valueEndOfYear)}</td>
+              <td>{formatter.format(yearInterest)}</td>
+              <td>{formatter.format(data.interest)}</td>
+              <td>{formatter.format(investedCapital)}</td>
+            </tr>
+          );
+        })}
+      </tbody>
     </table>
   );
 }

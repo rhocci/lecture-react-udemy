@@ -1,25 +1,23 @@
+import { useState } from "react";
 import "./UserInput.css";
 
-const initialValue = {
-  initialInvestment: 10000,
-  annualInvestment: 1200,
-  expectedReturn: 6,
-  duration: 10,
-};
+export default function UserInput({ currentValue, onInputChange }) {
+  const [inputValue, setInputValue] = useState(currentValue);
 
-export default function UserInput({ onChange }) {
-  const currentValue = Object.assign(initialValue);
+  function handleUserInput(name, value) {
+    setInputValue((prevValue) => {
+      const updatedValue = { ...prevValue, [name]: value };
+      return updatedValue;
+    });
 
-  function handleUserInput(e) {
-    currentValue[e.target.name] = +e.target.value;
-    onChange(currentValue);
+    onInputChange(inputValue);
   }
 
   return (
     <form id="user-input">
       <div className="input-group">
-        {Object.entries(currentValue).map((v) => {
-          const key = v[0];
+        {Object.entries(inputValue).map((data) => {
+          const key = data[0];
 
           return (
             <label key={key}>
@@ -27,8 +25,8 @@ export default function UserInput({ onChange }) {
               <input
                 type="number"
                 name={key}
-                value={currentValue[key]}
-                onChange={handleUserInput}
+                value={inputValue[key]}
+                onChange={(e) => handleUserInput(key, +e.target.value)}
               />
             </label>
           );

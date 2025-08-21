@@ -1,32 +1,8 @@
 import { formatter } from "../../util/investment.js";
 import "./ResultTable.css";
 
-export default function ResultTable({ annualData }) {
-  let annualInterest = 0;
-  let totalInterest = 0;
-
-  const renderingData = annualData.map((data) => {
-    annualInterest += data.interest * data.annualInterest;
-    totalInterest += data.valueEndOfYear + annualInterest;
-
-    // return {
-    //   year: data.year,
-    //   investmentValue: data.valueEndOfYear,
-    //   annualInterest: formatter.format(annualInterest),
-    //   totalInterest: formatter.format(totalInterest),
-    //   investedCapital: formatter.format(data.investmentValue),
-    // };
-
-    return (
-      <tr key={data.year}>
-        <td>{data.year}</td>
-        <td>{formatter.format(data.valueEndOfYear)}</td>
-        <td>{formatter.format(annualInterest)}</td>
-        <td>{formatter.format(totalInterest)}</td>
-        <td>{formatter.format(data.valueEndOfYear + totalInterest)}</td>
-      </tr>
-    );
-  });
+export default function ResultTable({ currentValue, annualData }) {
+  const { initialInvestment, annualInvestment } = currentValue;
 
   return (
     <table id="result">
@@ -39,7 +15,25 @@ export default function ResultTable({ annualData }) {
           <th>Invested Capital</th>
         </tr>
       </thead>
-      <tbody>{renderingData}</tbody>
+      <tbody>
+        {annualData.map((data) => {
+          // 누적 원금 = 초기자금 + (연간 납부액 * 연도)
+          const investedCapital =
+            initialInvestment + annualInvestment * data.year;
+          // 누적 이자 = 연말 총액 - 누적 원금
+          const totalInterest = data.valueEndOfYear - investedCapital;
+
+          return (
+            <tr key={data.year}>
+              <td>{data.year}</td>
+              <td>{formatter.format(data.valueEndOfYear)}</td>
+              <td>{formatter.format(data.interest)}</td>
+              <td>{formatter.format(totalInterest)}</td>
+              <td>{formatter.format(investedCapital)}</td>
+            </tr>
+          );
+        })}
+      </tbody>
     </table>
   );
 }

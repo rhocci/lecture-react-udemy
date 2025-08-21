@@ -45,7 +45,7 @@ function App() {
       {invalidMessage ? (
         <p className="center">{invalidMessage}</p>
       ) : (
-        <ResultTable annualData={annualData} />
+        <ResultTable currentValue={currentValue} annualData={annualData} />
       )}
     </>
   );

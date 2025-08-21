@@ -11,9 +11,26 @@ const INITIAL_VALUE = {
   duration: 10,
 };
 
+function validateInput(currentValue) {
+  let invalidMessage = null;
+
+  if (
+    !Object.values(currentValue).every(
+      (v) => typeof v === "number" && Number.isFinite(v)
+    )
+  ) {
+    invalidMessage = "Invalid Input Value! Please input Numbers.";
+  } else if (currentValue.duration < 1) {
+    invalidMessage = "Invalid Duration! (Minimum Value: 1)";
+  }
+
+  return invalidMessage;
+}
+
 function App() {
   const [currentValue, setCurrentValue] = useState(INITIAL_VALUE);
   const annualData = calculateInvestmentResults(currentValue);
+  const invalidMessage = validateInput(currentValue);
 
   function handleUserInput(key, value) {
     setCurrentValue((prevValue) => {
@@ -25,8 +42,8 @@ function App() {
     <>
       <Header />
       <UserInput currentValue={currentValue} onInputChange={handleUserInput} />
-      {currentValue.duration < 1 ? (
-        <p className="center">Invalid Duration! (Minimum Value: 1)</p>
+      {invalidMessage ? (
+        <p className="center">{invalidMessage}</p>
       ) : (
         <ResultTable annualData={annualData} />
       )}

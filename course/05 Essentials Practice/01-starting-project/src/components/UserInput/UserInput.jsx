@@ -9,7 +9,7 @@ export default function UserInput({ currentValue, onInputChange }) {
 
           return (
             <label key={key}>
-              {key.toUpperCase()}
+              {key.replace(/([A-Z])/g, " $1").toUpperCase()}
               <input
                 type="number"
                 name={key}

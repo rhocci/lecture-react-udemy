@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./UserInput.css";
 
 const initialValue = {
@@ -9,14 +8,12 @@ const initialValue = {
 };
 
 export default function UserInput({ onChange }) {
-  const [currentValue, setCurrentValue] = useState(initialValue);
+  const currentValue = Object.assign(initialValue);
 
-  const handleUserInput = (e) => {
-    const updatedValue = { ...initialValue, [e.target.name]: +e.target.value };
-
-    setCurrentValue(updatedValue);
+  function handleUserInput(e) {
+    currentValue[e.target.name] = +e.target.value;
     onChange(currentValue);
-  };
+  }
 
   return (
     <form id="user-input">

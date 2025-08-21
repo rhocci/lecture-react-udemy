@@ -4,7 +4,7 @@ import Header from "./components/Header/Header.jsx";
 import UserInput from "./components/UserInput/UserInput.jsx";
 import ResultTable from "./components/ResultTable/ResultTable.jsx";
 
-const initialValue = {
+const INITIAL_VALUE = {
   initialInvestment: 10000,
   annualInvestment: 5000,
   expectedReturn: 5,
@@ -12,25 +12,21 @@ const initialValue = {
 };
 
 function App() {
-  const [currentValue, setCurrentValue] = useState(initialValue);
-  const { initialInvestment, annualInvestment, expectedReturn, duration } =
-    currentValue;
+  const [currentValue, setCurrentValue] = useState(INITIAL_VALUE);
   const annualData = calculateInvestmentResults(currentValue);
-  const investedCapital = initialInvestment + annualInvestment * duration;
-  const yearInterest = annualInvestment * expectedReturn;
+
+  function handleUserInput(key, value) {
+    setCurrentValue((prevValue) => {
+      const updatedValue = { ...prevValue, [key]: value };
+      return updatedValue;
+    });
+  }
 
   return (
     <>
       <Header />
-      <UserInput
-        currentValue={currentValue}
-        onInputChange={(inputValue) => setCurrentValue(inputValue)}
-      />
-      <ResultTable
-        investedCapital={investedCapital}
-        yearInterest={yearInterest}
-        annualData={annualData}
-      />
+      <UserInput currentValue={currentValue} onInputChange={handleUserInput} />
+      <ResultTable annualData={annualData} />
     </>
   );
 }

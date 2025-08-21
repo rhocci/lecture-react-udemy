@@ -1,23 +1,18 @@
-import { useState } from 'react';
-import Header from './components/Header/Header.jsx';
-import UserInput from './components/UserInput/UserInput.jsx';
+import { useState } from "react";
+import Header from "./components/Header/Header.jsx";
+import UserInput from "./components/UserInput/UserInput.jsx";
+import { setDate } from "date-fns";
 
 function App() {
-  const [result, setResult] = useState([]);
+  const [currentData, setCurrentData] = useState([]);
 
-  function handleUserInput({
-    initialInvestment,
-    annualInvestment,
-    expectedReturn,
-    duration,
-  }) {
-    setResult((prevResult) => {
-      const updatedResult = [
-        ...prevResult,
-        { initialInvestment, annualInvestment, expectedReturn, duration },
-      ];
+  function handleUserInput(currentValue) {
+    setCurrentData((prevData) => {
+      const updatedData = [...prevData, currentValue];
 
-      return updatedResult;
+      console.log(updatedData);
+
+      return updatedData;
     });
   }
 

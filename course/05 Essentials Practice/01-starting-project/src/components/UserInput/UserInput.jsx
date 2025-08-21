@@ -1,4 +1,5 @@
-import './UserInput.css';
+import { useState } from "react";
+import "./UserInput.css";
 
 const initialValue = {
   initialInvestment: 10000,
@@ -8,51 +9,33 @@ const initialValue = {
 };
 
 export default function UserInput({ onChange }) {
+  const [currentValue, setCurrentValue] = useState(initialValue);
+
+  const handleUserInput = (e) => {
+    const updatedValue = { ...initialValue, [e.target.name]: +e.target.value };
+
+    setCurrentValue(updatedValue);
+    onChange(currentValue);
+  };
+
   return (
     <form id="user-input">
       <div className="input-group">
-        <label>
-          INITIAL INVESTMENT
-          <input
-            type="number"
-            name="initialInvestment"
-            onChange={(e) =>
-              onChange({ ...initialValue, initialInvestment: e.target.value })
-            }
-          />
-        </label>
-        <label>
-          ANNUAL INVESTMENT
-          <input
-            type="number"
-            name="annualInvestment"
-            onChange={(e) =>
-              onChange({ ...initialValue, annualInvestment: e.target.value })
-            }
-          />
-        </label>
-      </div>
-      <div className="input-group">
-        <label>
-          EXPECTED RETURN
-          <input
-            type="number"
-            name="expectedReturn"
-            onChange={(e) =>
-              onChange({ ...initialValue, expectedReturn: e.target.value })
-            }
-          />
-        </label>
-        <label>
-          DURATION
-          <input
-            type="number"
-            name="duration"
-            onChange={(e) =>
-              onChange({ ...initialValue, duration: e.target.value })
-            }
-          />
-        </label>
+        {Object.entries(currentValue).map((v) => {
+          const key = v[0];
+
+          return (
+            <label key={key}>
+              {key.toUpperCase()}
+              <input
+                type="number"
+                name={key}
+                value={currentValue[key]}
+                onChange={handleUserInput}
+              />
+            </label>
+          );
+        })}
       </div>
     </form>
   );

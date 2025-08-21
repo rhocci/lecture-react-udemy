@@ -17,8 +17,7 @@ function App() {
 
   function handleUserInput(key, value) {
     setCurrentValue((prevValue) => {
-      const updatedValue = { ...prevValue, [key]: value };
-      return updatedValue;
+      return { ...prevValue, [key]: value };
     });
   }
 

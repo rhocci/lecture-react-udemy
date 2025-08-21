@@ -14,7 +14,7 @@ export default function UserInput({ currentValue, onInputChange }) {
                 type="number"
                 name={key}
                 value={value}
-                onChange={(e) => onInputChange(key, e.target.value || value)}
+                onChange={(e) => onInputChange(key, +e.target.value)}
               />
             </label>
           );

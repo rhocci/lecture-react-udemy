@@ -1,8 +1,15 @@
-import { formatter } from "../../util/investment.js";
-import "./ResultTable.css";
+import {
+  calculateInvestmentResults,
+  formatter,
+} from '../../util/investment.js';
+import './ResultTable.css';
 
-export default function ResultTable({ currentValue, annualData }) {
-  const { initialInvestment, annualInvestment } = currentValue;
+export default function ResultTable({ currentValue }) {
+  const annualData = calculateInvestmentResults(currentValue);
+  const initialInvestment =
+    annualData[0].valueEndOfYear -
+    annualData[0].interest -
+    annualData[0].annualInvestment;
 
   return (
     <table id="result">
@@ -17,11 +24,11 @@ export default function ResultTable({ currentValue, annualData }) {
       </thead>
       <tbody>
         {annualData.map((data) => {
-          // 누적 원금 = 초기자금 + (연간 납부액 * 연도)
-          const investedCapital =
-            initialInvestment + annualInvestment * data.year;
-          // 누적 이자 = 연말 총액 - 누적 원금
-          const totalInterest = data.valueEndOfYear - investedCapital;
+          const totalInterest =
+            data.valueEndOfYear -
+            data.annualInvestment * data.year -
+            initialInvestment;
+          const investedCapital = data.valueEndOfYear - totalInterest;
 
           return (
             <tr key={data.year}>

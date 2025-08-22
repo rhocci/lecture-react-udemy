@@ -1,8 +1,7 @@
-import { useState } from "react";
-import { calculateInvestmentResults } from "./util/investment.js";
-import Header from "./components/Header/Header.jsx";
-import UserInput from "./components/UserInput/UserInput.jsx";
-import ResultTable from "./components/ResultTable/ResultTable.jsx";
+import { useState } from 'react';
+import Header from './components/Header/Header.jsx';
+import UserInput from './components/UserInput/UserInput.jsx';
+import ResultTable from './components/ResultTable/ResultTable.jsx';
 
 const INITIAL_VALUE = {
   initialInvestment: 10000,
@@ -16,12 +15,12 @@ function validateInput(currentValue) {
 
   if (
     !Object.values(currentValue).every(
-      (v) => typeof v === "number" && Number.isFinite(v)
+      (v) => typeof v === 'number' && Number.isFinite(v)
     )
   ) {
-    invalidMessage = "Invalid Input Value! Please input Numbers.";
+    invalidMessage = 'Invalid Input Value! Please input Numbers.';
   } else if (currentValue.duration < 1) {
-    invalidMessage = "Invalid Duration! (Minimum Value: 1)";
+    invalidMessage = 'Invalid Duration! (Minimum Value: 1)';
   }
 
   return invalidMessage;
@@ -29,7 +28,6 @@ function validateInput(currentValue) {
 
 function App() {
   const [currentValue, setCurrentValue] = useState(INITIAL_VALUE);
-  const annualData = calculateInvestmentResults(currentValue);
   const invalidMessage = validateInput(currentValue);
 
   function handleUserInput(key, value) {
@@ -45,7 +43,7 @@ function App() {
       {invalidMessage ? (
         <p className="center">{invalidMessage}</p>
       ) : (
-        <ResultTable currentValue={currentValue} annualData={annualData} />
+        <ResultTable currentValue={currentValue} />
       )}
     </>
   );

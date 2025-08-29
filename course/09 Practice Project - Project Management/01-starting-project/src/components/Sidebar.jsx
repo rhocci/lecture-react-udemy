@@ -6,17 +6,9 @@ export default function Sidebar() {
       <h2 className="mb-8 font-bold uppercase md:text-xl text-stone-200">
         Your Projects
       </h2>
-      <Button label="+ Add Project" />
+      <Button>+ Add Project</Button>
       <ul className="mt-8">
-        <button className="w-full text-left px-2 py-1 rounded-sm my-1 hover:text-stone-200 hover:bg-stone-800">
-          Project
-        </button>
-        <button className="w-full text-left px-2 py-1 rounded-sm my-1 hover:text-stone-200 hover:bg-stone-800">
-          Project
-        </button>
-        <button className="w-full text-left px-2 py-1 rounded-sm my-1 hover:text-stone-200 hover:bg-stone-800">
-          Project
-        </button>
+        <Button variant="nav">Project</Button>
       </ul>
     </aside>
   );

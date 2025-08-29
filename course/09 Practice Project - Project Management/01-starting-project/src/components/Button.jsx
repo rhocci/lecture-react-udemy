@@ -1,4 +1,8 @@
-export default function Button({ variant = 'primary', children }) {
+export default function Button({
+  type = 'button',
+  variant = 'primary',
+  children,
+}) {
   const variants = {
     primary:
       'px-4 py-2 text-xs md:text-base rounded-md bg-stone-700 text-stone-400 hover:bg-stone-600 hover:text-stone-100',
@@ -9,5 +13,9 @@ export default function Button({ variant = 'primary', children }) {
     danger: 'text-stone-700 hover:text-red-500',
   };
 
-  return <button className={variants[variant]}>{children}</button>;
+  return (
+    <button type="button" className={variants[variant]}>
+      {children}
+    </button>
+  );
 }

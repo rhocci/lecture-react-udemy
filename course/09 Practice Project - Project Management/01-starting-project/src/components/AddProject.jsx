@@ -1,7 +1,7 @@
 import Input from './Input.jsx';
 import Button from './Button.jsx';
 
-export function AddProject() {
+export default function AddProject() {
   return (
     <form className="mt-4 text-left">
       <menu className="flex items-center justify-end gap-4 my-4">

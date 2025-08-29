@@ -1,7 +1,7 @@
 import noProjects from '../assets/no-projects.png';
 import Button from './Button';
 
-export default function Empty() {
+export default function Empty({ handleChangeView }) {
   return (
     <div className="mt-24 text-center">
       <img src={noProjects} className="w-16 h-16 object-contain mx-auto" />
@@ -12,7 +12,9 @@ export default function Empty() {
         Select a project or get started with a new one
       </p>
       <p className="mt-8">
-        <Button variant="primary">Create new project</Button>
+        <Button variant="primary" onClick={() => handleChangeView('add')}>
+          Create new project
+        </Button>
       </p>
     </div>
   );

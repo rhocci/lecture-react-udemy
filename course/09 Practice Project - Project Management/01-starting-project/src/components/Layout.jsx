@@ -8,18 +8,24 @@ import ShowProject from './ShowProject.jsx';
 export default function Layout() {
   const [currentView, setCurrentView] = useState('empty');
 
-  function handleView(page) {
+  function handleChangeView(page) {
     if (!['empty', 'add', 'show'].includes(page)) return;
     setCurrentView(page);
   }
 
   return (
     <div className="h-screen my-8 flex gap-8">
-      <Sidebar />
+      <Sidebar handleChangeView={handleChangeView} />
       <MainContent>
-        {currentView === 'empty' && <Empty />}
-        {currentView === 'add' && <AddProject />}
-        {currentView === 'show' && <ShowProject />}
+        {currentView === 'empty' && (
+          <Empty handleChangeView={handleChangeView} />
+        )}
+        {currentView === 'add' && (
+          <AddProject handleChangeView={handleChangeView} />
+        )}
+        {currentView === 'show' && (
+          <ShowProject handleChangeView={handleChangeView} />
+        )}
       </MainContent>
     </div>
   );

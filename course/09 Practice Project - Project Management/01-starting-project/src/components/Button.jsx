@@ -2,6 +2,7 @@ export default function Button({
   type = 'button',
   variant = 'primary',
   children,
+  onClick,
 }) {
   const variants = {
     primary:
@@ -14,7 +15,11 @@ export default function Button({
   };
 
   return (
-    <button type="button" className={variants[variant]}>
+    <button
+      type={type}
+      className={`cursor-pointer ${variants[variant]}`}
+      onClick={onClick}
+    >
       {children}
     </button>
   );

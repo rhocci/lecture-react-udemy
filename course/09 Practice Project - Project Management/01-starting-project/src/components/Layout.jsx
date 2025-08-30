@@ -23,7 +23,7 @@ export default function Layout() {
     setCurrentView(page);
   }
 
-  function handleAddProject({ title, description, dueDate, tasks = null }) {
+  function handleAddProject({ title, description, dueDate, tasks = [] }) {
     setProjects((prevProjects) => [
       ...prevProjects,
       { id: Date.now(), title, description, dueDate, tasks },
@@ -34,11 +34,11 @@ export default function Layout() {
     if (!task) return;
 
     setProjects((prevProjects) => {
-      const updatedProjects = [...prevProjects];
-      updatedProjects.map((project) => {
-        if (project.id === id) project.tasks.push(task);
+      prevProjects.map((project) => {
+        project.id === id
+          ? { ...project, tasks: [...project.tasks, task] }
+          : project;
       });
-      return updatedProjects;
     });
   }
 

@@ -7,9 +7,7 @@ import { DUMMY_PRODUCTS } from './dummy-products.js';
 import { CartContext } from './store/shopping-cart-context.jsx';
 
 function App() {
-  const [shoppingCart, setShoppingCart] = useState({
-    items: [],
-  });
+  const [shoppingCart, setShoppingCart] = useState({ items: [] });
 
   function handleAddItemToCart(id) {
     setShoppingCart((prevShoppingCart) => {
@@ -70,18 +68,16 @@ function App() {
   const ctxValue = {
     items: shoppingCart.items,
     addItemToCart: handleAddItemToCart,
+    updateItemQuantity: handleUpdateCartItemQuantity,
   };
 
   return (
     <CartContext.Provider value={ctxValue}>
-      <Header
-        cart={shoppingCart}
-        onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
-      />
+      <Header />
       <Shop>
         {DUMMY_PRODUCTS.map((product) => (
           <li key={product.id}>
-            <Product {...product}/>
+            <Product {...product} />
           </li>
         ))}
       </Shop>

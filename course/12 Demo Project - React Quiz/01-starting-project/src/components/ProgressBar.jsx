@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { QuizContext } from '../store/quiz-context';
 
 export default function ProgressBar({ allottedTime, updateQuestion }) {
+  const { activeQuestionIndex, activeAnswerIndex } = useContext(QuizContext);
   const [remainingTime, setRemainingTime] = useState(allottedTime);
 
   useEffect(() => {
@@ -11,7 +13,7 @@ export default function ProgressBar({ allottedTime, updateQuestion }) {
     return () => {
       clearTimeout(timer);
     };
-  }, [allottedTime, updateQuestion]);
+  }, [activeQuestionIndex, activeAnswerIndex, updateQuestion]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -23,5 +25,5 @@ export default function ProgressBar({ allottedTime, updateQuestion }) {
     };
   }, []);
 
-  return <progress value={remainingTime} max={allottedTime} />;
+  return <progress value={remainingTime} max={5000} />;
 }

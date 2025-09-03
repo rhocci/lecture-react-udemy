@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import QUESTIONS from '../questions.js';
+import Question from './Question.jsx';
+import Answers from './Answers.jsx';
 
 export default function Quiz() {
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
@@ -20,21 +22,11 @@ export default function Quiz() {
 
   return (
     <section id="quiz">
-      <div id="question">
-        <progress />
-        <p>{activeQuestion.text}</p>
-      </div>
-      <ul id="answers">
-        {activeQuestion.answers.map((answer, index) => {
-          return (
-            <li key={answer} className="answer">
-              <button onClick={() => handleSelectAnswer(index)}>
-                {answer}
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+      <Question>{activeQuestion}</Question>
+      <Answers
+        activeQuestion={activeQuestion}
+        handleSelectAnswer={handleSelectAnswer}
+      />
     </section>
   );
 }

@@ -1,32 +1,16 @@
-import { useState } from 'react';
-import QUESTIONS from '../questions.js';
+import { useContext } from 'react';
 import Question from './Question.jsx';
 import Answers from './Answers.jsx';
+import QUESTIONS from '../questions.js';
+import { QuizContext } from '../store/quiz-context.jsx';
 
 export default function Quiz() {
-  const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
-  const [userAnswers, setUserAnswers] = useState([]);
-
-  const activeQuestion = QUESTIONS[activeQuestionIndex];
-
-  function handleSelectAnswer(selectedIndex) {
-    const userAnswer = {
-      selected: activeQuestion.answers[selectedIndex],
-      // 답 데이터가 없음..
-      correct: false,
-    };
-
-    setUserAnswers((prevAnswers) => [...prevAnswers, userAnswer]);
-    setActiveQuestionIndex((prevQuestionIndex) => ++prevQuestionIndex);
-  }
+  const { activeQuestionIndex } = useContext(QuizContext);
 
   return (
     <section id="quiz">
-      <Question>{activeQuestion}</Question>
-      <Answers
-        activeQuestion={activeQuestion}
-        handleSelectAnswer={handleSelectAnswer}
-      />
+      <Question>{QUESTIONS[activeQuestionIndex].text}</Question>
+      <Answers />
     </section>
   );
 }

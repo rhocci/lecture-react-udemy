@@ -1,6 +1,11 @@
+import { useContext } from 'react';
 import completeImg from '../assets/quiz-complete.png';
+import QUESTIONS from '../questions.js';
+import { QuizContext } from '../store/quiz-context.jsx';
 
-export default function Summary({ userAnswers }) {
+export default function Summary() {
+  const { userAnswers } = useContext(QuizContext);
+
   return (
     <section id="summary">
       <img src={completeImg} alt="Winning Trophy" />
@@ -23,11 +28,9 @@ export default function Summary({ userAnswers }) {
         {userAnswers.map((answer, index) => (
           <li key={index}>
             <h3>{index}</h3>
-            <p className="question"></p>
-            <p
-              className={`user-answer ${answer.correct ? 'correct' : 'wrong'}`}
-            >
-              {answer.selected}
+            <p className="question">{QUESTIONS[index].text}</p>
+            <p className={`user-answer ${true ? 'correct' : 'wrong'}`}>
+              {answer}
             </p>
           </li>
         ))}

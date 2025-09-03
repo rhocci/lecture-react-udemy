@@ -6,6 +6,8 @@ export default function Answers() {
   const { activeQuestionIndex, answerIsSelected, handleSelectAnswer } =
     useContext(QuizContext);
 
+  const buttonClass = answerIsSelected ? 'selected' : undefined;
+
   return (
     <ul id="answers">
       {QUESTIONS[activeQuestionIndex].answers.map((answer, index) => (
@@ -13,7 +15,7 @@ export default function Answers() {
           <button
             onClick={(e) => {
               handleSelectAnswer(index);
-              if (answerIsSelected) e.target.classList.add('selected');
+              if (answerIsSelected) e.target.className = buttonClass;
             }}
           >
             {answer}

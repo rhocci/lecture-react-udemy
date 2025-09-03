@@ -16,22 +16,30 @@ export default function QuizContextProvider({ children }) {
 
   const activeQuestion = QUESTIONS[activeQuestionIndex];
 
-  function handleSelectAnswer(selectedIndex) {
-    const userAnswer = activeQuestion.answers[selectedIndex];
+  const updateQuestion = useCallback((selectedIndex) => {
+    let status = undefined;
 
-    setAnswerIsSelected(true);
+    if (
+      !(activeQuestion.answers.indexOf(activeQuestion[selectedIndex]) === -1)
+    ) {
+      status =
+        activeQuestion.answers[selectedIndex] === 0 ? 'correct' : 'wrong';
+    }
+
+    const userAnswer = {
+      selected: activeQuestion.answers[selectedIndex],
+      status,
+    };
     setUserAnswers((prevAnswers) => [...prevAnswers, userAnswer]);
-  }
-
-  const updateQuestion = useCallback(() => {
     setActiveQuestionIndex((prevQuestionIndex) => ++prevQuestionIndex);
+    setAnswerIsSelected(false);
   });
 
   const ctxValue = {
     activeQuestionIndex,
     userAnswers,
     answerIsSelected,
-    handleSelectAnswer,
+    handleSelectAnswer: () => setAnswerIsSelected(true),
     updateQuestion,
   };
 

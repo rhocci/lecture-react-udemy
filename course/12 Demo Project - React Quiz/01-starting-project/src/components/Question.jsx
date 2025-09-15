@@ -9,7 +9,7 @@ export default function Question({ children }) {
     <div id="question">
       <ProgressBar
         allottedTime={activeAnswerIndex > -1 ? 3000 : 7000}
-        updateQuestion={() => updateQuestion(activeAnswerIndex)}
+        updateQuestion={updateQuestion}
       />
       <p>{children}</p>
     </div>

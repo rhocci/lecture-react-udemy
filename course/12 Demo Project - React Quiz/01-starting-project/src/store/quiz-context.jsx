@@ -24,7 +24,7 @@ export default function QuizContextProvider({ children }) {
     let status = undefined;
 
     if (!(activeAnswerIndex === -1)) {
-      status = activeQuestion.answers[index] === 0 ? 'correct' : 'wrong';
+      status = index === 0 ? 'correct' : 'wrong';
     }
 
     const userAnswer = {

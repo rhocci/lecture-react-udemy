@@ -7,23 +7,24 @@ export default function ProgressBar({ allottedTime, updateQuestion }) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      updateQuestion();
+      updateQuestion(activeAnswerIndex);
     }, allottedTime);
 
     return () => {
       clearTimeout(timer);
+      setRemainingTime(allottedTime);
     };
-  }, [activeQuestionIndex, activeAnswerIndex, updateQuestion]);
+  }, [allottedTime, activeQuestionIndex, activeAnswerIndex, updateQuestion]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setRemainingTime((prevTime) => (prevTime -= 10));
+      setRemainingTime((prevTime) => prevTime - 10);
     }, 10);
 
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [allottedTime]);
 
-  return <progress value={remainingTime} max={5000} />;
+  return <progress value={remainingTime} max={allottedTime} />;
 }

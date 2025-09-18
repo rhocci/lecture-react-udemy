@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 
 export default function QuestionTimer({ timeout, onTimeout }) {
-  const [remainingTime, setRemainigTime] = useState(timeout);
+  const [remainingTime, setRemainingTime] = useState(timeout);
 
   useEffect(() => {
+    console.log('타임아웃 등록');
     setTimeout(onTimeout, timeout);
   }, [timeout, onTimeout]);
 
   useEffect(() => {
+    console.log('인터벌 등록');
     setInterval(() => {
-      setRemainigTime((prevRemainigTime) => prevRemainigTime - 100);
+      setRemainingTime((prevRemainigTime) => prevRemainigTime - 100);
     }, 100);
   }, []);
 
